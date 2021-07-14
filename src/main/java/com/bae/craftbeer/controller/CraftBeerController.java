@@ -1,6 +1,5 @@
 package com.bae.craftbeer.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,57 +11,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bae.craftbeer.data.CraftBeer;
+import com.bae.craftbeer.service.CraftBeerService;
 
 @RestController
 public class CraftBeerController {
 
-	private List<CraftBeer> craftbeers = new ArrayList<>();
+	private CraftBeerService service;
 
-	public void addBeer(CraftBeer cb) {
-		this.craftbeers.add(cb);
-	}
-
-	public void removeBeer(CraftBeer cb) {
-		this.craftbeers.remove(cb);
+	public CraftBeerController(CraftBeerService service) {
+		super();
+		this.service = service;
 	}
 
 	@GetMapping("/getbeers")
-	public List<CraftBeer> getBeers() {
+	public List<CraftBeer> getAllBeers() {
 		System.out.println("Delicious Beers: ");
-		return this.craftbeers;
+		return this.service.getAllBeers();
 
 	}
 
 	@GetMapping("/getbeer/{id}")
 	public CraftBeer getBeer(@PathVariable int id) {
-		CraftBeer found = this.craftbeers.get(id);
-		return found;
+		return this.service.getBeer(id);
 	}
 
-	@GetMapping("/getbeerbyid/{ID}")
-	public String getBeerByID(@PathVariable int id) {
-		// System.out.println(this.craftbeers.size());
-		// System.out.println("Delicious Beer: " + id);
-		return "Delicious beer:" + id;
-	}
-
-	@PostMapping("/addbeers")
+	@PostMapping("/createbeer")
 	public void createCraftBeer(@RequestBody CraftBeer cb) {
-		System.out.println(cb);
-		this.craftbeers.add(cb);
+		this.service.createCraftBeer(cb);
 	}
 
 	@DeleteMapping("/deleteCraftBeer/{id}")
-	public String deleteCraftBeer(@PathVariable int id) {
-		this.craftbeers.remove(id);
-		return "Deleted Beer at index: " + id;
-
+	public void deleteCraftBeer(@PathVariable int id) {
+		this.service.deleteCraftBeer(id);
 	}
 
 	@PutMapping("/replaceCraftBeer/{id}")
-	public String replaceCraftBeer(@PathVariable int id, @RequestBody CraftBeer cb) {
-		this.craftbeers.set(id, cb);
-		return "Craft Beer " + id + " has been drunk, and replaced with " + cb.getName();
+	public void replaceCraftBeer(@PathVariable int id, @RequestBody CraftBeer cb) {
+		this.service.replaceCraftBeer(id, cb);
 	}
 
 }
