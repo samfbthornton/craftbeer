@@ -2,6 +2,8 @@ package com.bae.craftbeer.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +27,7 @@ public class CraftBeerController {
 
 	@GetMapping("/getBeers")
 	public List<CraftBeer> getAllBeers() {
-		System.out.println("Delicious Beers: ");
+		System.out.println("Delicious Beers: " + this.service.getAllBeers());
 		return this.service.getAllBeers();
 
 	}
@@ -41,8 +43,9 @@ public class CraftBeerController {
 	}
 
 	@PostMapping("/createBeer")
-	public void createCraftBeer(@RequestBody CraftBeer cb) {
-		this.service.createCraftBeer(cb);
+	public ResponseEntity<CraftBeer> createCraftBeer(@RequestBody CraftBeer cb) {
+		CraftBeer created = this.service.createCraftBeer(cb);
+		return new ResponseEntity<>(created, HttpStatus.CREATED); // body, status code
 	}
 
 	@PutMapping("/replaceBeer/{id}")

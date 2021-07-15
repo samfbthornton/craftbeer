@@ -38,9 +38,10 @@ public class CraftBeerServiceList implements CraftBeerService {
 //	}
 
 	@Override
-	public void createCraftBeer(CraftBeer cb) {
+	public CraftBeer createCraftBeer(CraftBeer cb) {
 		System.out.println(cb);
 		this.craftbeers.add(cb);
+		return this.createCraftBeer(cb);
 	}
 
 	@Override

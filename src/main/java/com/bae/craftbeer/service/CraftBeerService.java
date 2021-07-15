@@ -6,7 +6,7 @@ import com.bae.craftbeer.data.CraftBeer;
 
 public interface CraftBeerService {
 
-	public void createCraftBeer(CraftBeer cb);
+	public CraftBeer createCraftBeer(CraftBeer cb);
 
 	public List<CraftBeer> getAllBeers();
 

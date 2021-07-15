@@ -20,8 +20,8 @@ public class CraftBeerServiceDB implements CraftBeerService {
 	}
 
 	@Override
-	public void createCraftBeer(CraftBeer cb) { // less fancy
-		this.repo.save(cb);
+	public CraftBeer createCraftBeer(CraftBeer cb) { // less fancy
+		return this.repo.save(cb);
 	}
 
 	@Override

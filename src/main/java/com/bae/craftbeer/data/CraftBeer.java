@@ -25,9 +25,18 @@ public class CraftBeer {
 		// REQUIRED
 	}
 
-	public CraftBeer(int id, String brewery, String name, double abv, boolean nice) {
+	public CraftBeer(String brewery, String name, double abv, boolean nice) {
 		super();
 
+		this.brewery = brewery;
+		this.name = name;
+		this.abv = abv;
+		this.nice = nice;
+	}
+
+	public CraftBeer(int id, String brewery, String name, double abv, boolean nice) {
+		super();
+		this.id = id;
 		this.brewery = brewery;
 		this.name = name;
 		this.abv = abv;
