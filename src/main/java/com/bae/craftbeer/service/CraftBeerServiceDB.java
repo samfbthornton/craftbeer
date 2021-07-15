@@ -2,10 +2,12 @@ package com.bae.craftbeer.service;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.bae.craftbeer.data.CraftBeer;
 
+@Primary
 @Service // FUTURE FUNCTIONALITY - PLZ DO NOT USE
 public class CraftBeerServiceDB implements CraftBeerService {
 
