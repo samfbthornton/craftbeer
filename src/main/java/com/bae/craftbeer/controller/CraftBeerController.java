@@ -23,31 +23,36 @@ public class CraftBeerController {
 		this.service = service;
 	}
 
-	@GetMapping("/getbeers")
+	@GetMapping("/getBeers")
 	public List<CraftBeer> getAllBeers() {
 		System.out.println("Delicious Beers: ");
 		return this.service.getAllBeers();
 
 	}
 
-	@GetMapping("/getbeer/{id}")
+	@GetMapping("/getBeerByID/{id}")
 	public CraftBeer getBeer(@PathVariable int id) {
-		return this.service.getBeer(id);
+		return this.service.getBeerByID(id);
 	}
 
-	@PostMapping("/createbeer")
+	@GetMapping("/getBeerByName/{name}")
+	public List<CraftBeer> getBeer(@PathVariable String name) {
+		return this.service.getBeerByName(name);
+	}
+
+	@PostMapping("/createBeer")
 	public void createCraftBeer(@RequestBody CraftBeer cb) {
 		this.service.createCraftBeer(cb);
 	}
 
-	@DeleteMapping("/deleteCraftBeer/{id}")
-	public void deleteCraftBeer(@PathVariable int id) {
-		this.service.deleteCraftBeer(id);
-	}
-
-	@PutMapping("/replaceCraftBeer/{id}")
+	@PutMapping("/replaceBeer/{id}")
 	public void replaceCraftBeer(@PathVariable int id, @RequestBody CraftBeer cb) {
 		this.service.replaceCraftBeer(id, cb);
+	}
+
+	@DeleteMapping("/deleteBeer/{id}")
+	public void deleteCraftBeer(@PathVariable int id) {
+		this.service.deleteCraftBeer(id);
 	}
 
 }

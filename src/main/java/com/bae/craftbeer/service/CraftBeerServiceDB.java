@@ -6,34 +6,59 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.bae.craftbeer.data.CraftBeer;
+import com.bae.craftbeer.data.repo.CraftBeerRepo;
 
 @Primary
 @Service // FUTURE FUNCTIONALITY - PLZ DO NOT USE
 public class CraftBeerServiceDB implements CraftBeerService {
 
+	private CraftBeerRepo repo;
+
+	public CraftBeerServiceDB(CraftBeerRepo repo) {
+		super();
+		this.repo = repo;
+	}
+
 	@Override
 	public void createCraftBeer(CraftBeer cb) { // less fancy
-
+		this.repo.save(cb);
 	}
 
 	@Override
 	public List<CraftBeer> getAllBeers() {
-		return null;
+		return this.repo.findAll();
 	}
 
 	@Override
-	public CraftBeer getBeer(int id) {
-		return null;
+	public CraftBeer getBeerByID(int id) {
+		return this.repo.findById(id).get();
 	}
 
 	@Override
-	public String replaceCraftBeer(int id, CraftBeer newCraftBeer) {
-		return null;
+	public String replaceCraftBeer(int id, CraftBeer newCB) {
+		CraftBeer found = this.repo.findById(id).get();
+
+		found.setAbv(newCB.getAbv());
+		found.setBrewery(newCB.getBrewery());
+		found.setName(newCB.getName());
+		found.setNice(newCB.isNice());
+
+		CraftBeer updated = this.repo.save(found);
+
+		return updated + " has been changed.";
 	}
 
 	@Override
 	public String deleteCraftBeer(int id) {
-		return null;
+		this.repo.deleteById(id);
+
+		return id + " has been drunk. Soz.";
+	}
+
+	@Override
+	public List<CraftBeer> getBeerByName(String name) {
+		// TODO Auto-generated method stub
+		return this.repo.findByNameIgnoreCase(name);
 	}
 
 }

@@ -10,9 +10,11 @@ public interface CraftBeerService {
 
 	public List<CraftBeer> getAllBeers();
 
-	public CraftBeer getBeer(int id);
+	public CraftBeer getBeerByID(int id);
 
 	public String replaceCraftBeer(int id, CraftBeer newCraftBeer);
 
 	public String deleteCraftBeer(int id);
+
+	List<CraftBeer> getBeerByName(String name);
 }

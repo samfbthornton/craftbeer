@@ -1,5 +1,6 @@
 package com.bae.craftbeer.data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ public class CraftBeer {
 	private int id;
 
 	private String brewery;
+	@Column(name = "beerName", unique = true)
 	private String name;
 
 	private double abv;
@@ -25,7 +27,7 @@ public class CraftBeer {
 
 	public CraftBeer(int id, String brewery, String name, double abv, boolean nice) {
 		super();
-		this.id = id;
+
 		this.brewery = brewery;
 		this.name = name;
 		this.abv = abv;

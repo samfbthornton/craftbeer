@@ -20,16 +20,22 @@ public class CraftBeerServiceList implements CraftBeerService {
 	}
 
 	@Override
-	public CraftBeer getBeer(int id) {
+	public CraftBeer getBeerByID(int id) {
 		CraftBeer found = this.craftbeers.get(id);
 		return found;
 	}
 
-	public String getBeerByID(int id) {
-		// System.out.println(this.craftbeers.size());
-		// System.out.println("Delicious Beer: " + id);
-		return "Delicious beer:" + id;
+	@Override
+	public List<CraftBeer> getBeerByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+//	public String getBeerByID(int id) {
+	// System.out.println(this.craftbeers.size());
+	// System.out.println("Delicious Beer: " + id);
+//		return "Delicious beer:" + id;
+//	}
 
 	@Override
 	public void createCraftBeer(CraftBeer cb) {
