@@ -43,8 +43,8 @@ public class CraftBeerControllerIntegrationTest {
 		// convert to json
 		String testBeerAsJSON = this.mapper.writeValueAsString(testBeer);
 
-		System.out.println(testBeer);
-		System.out.println(testBeerAsJSON);
+//		System.out.println(testBeer);
+//		System.out.println(testBeerAsJSON);
 
 		// body, method, address and the content-type header
 		RequestBuilder request = post("/createBeer").contentType(MediaType.APPLICATION_JSON).content(testBeerAsJSON);
@@ -53,8 +53,8 @@ public class CraftBeerControllerIntegrationTest {
 
 		ResultMatcher checkStatus = status().isCreated();
 
-		CraftBeer testCreatedBeer = new CraftBeer("Iris Brew Co", "Pale Ale", 4.2, true);
-		testCreatedBeer.setId(2); // due to the AUTO_INCREMENT
+		CraftBeer testCreatedBeer = new CraftBeer(2, "Iris Brew Co", "Pale Ale", 4.2, true);
+		// due to the AUTO_INCREMENT
 		String testCreatedBeerAsJSON = this.mapper.writeValueAsString(testCreatedBeer);
 
 		ResultMatcher checkBody = content().json(testCreatedBeerAsJSON);
@@ -82,8 +82,8 @@ public class CraftBeerControllerIntegrationTest {
 		// true);
 
 		List<CraftBeer> testCreatedList = new ArrayList<>();
-		CraftBeer testGetBeer = new CraftBeer("Iris Brew Co", "Pale Ale", 4.2, true);
-		testGetBeer.setId(1);
+		CraftBeer testGetBeer = new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true);
+
 		testCreatedList.add(testGetBeer);
 		// testCreatedList.containsAll(testCreatedList);
 		String testListAsJSON = this.mapper.writeValueAsString(testCreatedList);
@@ -99,8 +99,8 @@ public class CraftBeerControllerIntegrationTest {
 
 		ResultMatcher checkStatus = status().isOk();
 
-		CraftBeer testGetBeer = new CraftBeer("Iris Brew Co", "Pale Ale", 4.2, true);
-		testGetBeer.setId(1);
+		CraftBeer testGetBeer = new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true);
+
 		String testGetByIDAsJson = this.mapper.writeValueAsString(testGetBeer);
 
 		ResultMatcher checkBody = content().json(testGetByIDAsJson);
@@ -115,8 +115,8 @@ public class CraftBeerControllerIntegrationTest {
 
 		ResultMatcher checkStatus = status().isOk();
 
-		CraftBeer testGetBeer = new CraftBeer("Iris Brew Co", "Pale Ale", 4.2, true);
-		testGetBeer.setId(1);
+		CraftBeer testGetBeer = new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true);
+
 		testCreatedList.add(testGetBeer);
 		String testGetByNameAsJson = this.mapper.writeValueAsString(testCreatedList);
 
@@ -130,13 +130,13 @@ public class CraftBeerControllerIntegrationTest {
 		CraftBeer testBeer = new CraftBeer("Iris Brew Co", "Pale Ale", 4.2, true);
 		String testBeerAsJSON = this.mapper.writeValueAsString(testBeer);
 
-		System.out.println(testBeer);
-		System.out.println(testBeerAsJSON);
+//		System.out.println(testBeer);
+//		System.out.println(testBeerAsJSON);
 
 		RequestBuilder request = put("/replaceBeer/1").contentType(MediaType.APPLICATION_JSON).content(testBeerAsJSON);
 
-		CraftBeer testUpdatedBeer = new CraftBeer("Iris Brew Co", "Pale Ale", 4.2, true);
-		testUpdatedBeer.setId(1);// due to the AUTO_INCREMENT
+		CraftBeer testUpdatedBeer = new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true);
+		// due to the AUTO_INCREMENT
 		String testUpdatedBeerAsJSON = this.mapper.writeValueAsString(testUpdatedBeer);
 
 		ResultMatcher checkStatus = status().isAccepted();
