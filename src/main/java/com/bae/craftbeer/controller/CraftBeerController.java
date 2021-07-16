@@ -26,10 +26,10 @@ public class CraftBeerController {
 	}
 
 	@GetMapping("/getBeers")
-	public List<CraftBeer> getAllBeers() {
+	public ResponseEntity<List<CraftBeer>> getAllBeers() {
 		System.out.println("Delicious Beers: " + this.service.getAllBeers());
-		return this.service.getAllBeers();
-
+		List<CraftBeer> getAll = this.service.getAllBeers();
+		return new ResponseEntity<List<CraftBeer>>(getAll, HttpStatus.OK);
 	}
 
 	@GetMapping("/getBeerByID/{id}")
@@ -49,13 +49,15 @@ public class CraftBeerController {
 	}
 
 	@PutMapping("/replaceBeer/{id}")
-	public void replaceCraftBeer(@PathVariable int id, @RequestBody CraftBeer cb) {
-		this.service.replaceCraftBeer(id, cb);
+	public ResponseEntity<CraftBeer> replaceCraftBeer(@PathVariable int id, @RequestBody CraftBeer cb) {
+		CraftBeer updated = this.service.replaceCraftBeer(id, cb);
+		return new ResponseEntity<CraftBeer>(updated, HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("/deleteBeer/{id}")
-	public void deleteCraftBeer(@PathVariable int id) {
-		this.service.deleteCraftBeer(id);
+	public ResponseEntity<String> deleteCraftBeer(@PathVariable int id) {
+		String body = this.service.deleteCraftBeer(id);
+		return new ResponseEntity<String>(body, HttpStatus.NO_CONTENT);
 	}
 
 }

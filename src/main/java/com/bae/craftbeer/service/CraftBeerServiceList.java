@@ -52,9 +52,9 @@ public class CraftBeerServiceList implements CraftBeerService {
 	}
 
 	@Override
-	public String replaceCraftBeer(int id, CraftBeer cb) {
+	public CraftBeer replaceCraftBeer(int id, CraftBeer cb) {
 		this.craftbeers.set(id, cb);
-		return "Craft Beer " + id + " has been drunk, and replaced with " + cb.getName();
+		return cb;
 	}
 
 }

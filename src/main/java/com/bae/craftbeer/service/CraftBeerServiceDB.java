@@ -35,7 +35,7 @@ public class CraftBeerServiceDB implements CraftBeerService {
 	}
 
 	@Override
-	public String replaceCraftBeer(int id, CraftBeer newCB) {
+	public CraftBeer replaceCraftBeer(int id, CraftBeer newCB) {
 		CraftBeer found = this.repo.findById(id).get();
 
 		found.setAbv(newCB.getAbv());
@@ -45,7 +45,7 @@ public class CraftBeerServiceDB implements CraftBeerService {
 
 		CraftBeer updated = this.repo.save(found);
 
-		return updated + " has been changed.";
+		return updated;
 	}
 
 	@Override

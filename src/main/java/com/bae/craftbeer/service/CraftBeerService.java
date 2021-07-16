@@ -12,7 +12,7 @@ public interface CraftBeerService {
 
 	public CraftBeer getBeerByID(int id);
 
-	public String replaceCraftBeer(int id, CraftBeer newCraftBeer);
+	public CraftBeer replaceCraftBeer(int id, CraftBeer newCraftBeer);
 
 	public String deleteCraftBeer(int id);
 
