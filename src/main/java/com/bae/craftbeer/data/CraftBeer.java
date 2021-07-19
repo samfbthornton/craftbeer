@@ -1,5 +1,7 @@
 package com.bae.craftbeer.data;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,6 +43,25 @@ public class CraftBeer {
 		this.name = name;
 		this.abv = abv;
 		this.nice = nice;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(abv, brewery, id, name, nice);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CraftBeer other = (CraftBeer) obj;
+		return Double.doubleToLongBits(abv) == Double.doubleToLongBits(other.abv)
+				&& Objects.equals(brewery, other.brewery) && id == other.id && Objects.equals(name, other.name)
+				&& nice == other.nice;
 	}
 
 	// REQUIRED

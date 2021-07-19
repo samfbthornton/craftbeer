@@ -38,13 +38,18 @@ public class CraftBeerServiceDB implements CraftBeerService {
 	public CraftBeer replaceCraftBeer(int id, CraftBeer newCB) {
 		CraftBeer found = this.repo.findById(id).get();
 
+		System.out.println("FOUND: " + found);
+
 		found.setAbv(newCB.getAbv());
 		found.setBrewery(newCB.getBrewery());
 		found.setName(newCB.getName());
 		found.setNice(newCB.isNice());
 
+		System.out.println("FOUND AFTER UPDATE: " + found);
+
 		CraftBeer updated = this.repo.save(found);
 
+		System.out.println("UPDATED: " + updated);
 		return updated;
 	}
 
@@ -52,7 +57,12 @@ public class CraftBeerServiceDB implements CraftBeerService {
 	public String deleteCraftBeer(int id) {
 		this.repo.deleteById(id);
 
-		return id + " has been drunk. Soz.";
+		if (this.repo.existsById(id)) {
+			return "You're lucky! " + id + " hasn't been drunk yet!";
+		} else {
+
+			return id + " has been drunk. Soz.";
+		}
 	}
 
 	@Override
