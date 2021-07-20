@@ -88,18 +88,24 @@ public class CraftBeerServiceDBUnitTest {
 		Mockito.when(this.repo.findById(testCraftBeer.getId())).thenReturn(Optional.of(testCraftBeer));
 
 		assertThat(this.service.getBeerByID(id)).isEqualTo(testCraftBeer);
+
+		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
 	}
 
 	@Test
 	void testGetBeerByName() {
-		int id = 1;
+
 		List<CraftBeer> testList = new ArrayList<>();
-		CraftBeer testCraftBeer = new CraftBeer(id, "Iris Brew Co", "Pale Ale", 4.2, true);
+		CraftBeer testCraftBeer = new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true);
 		testList.add(testCraftBeer);
 
-		Mockito.when(this.repo.findByNameIgnoreCase("Iris Brew Co")).thenReturn(testList);
+		String search = "pale ale";
 
-		assertThat(this.service.getBeerByName("Iris Brew Co")).isEqualTo(testList);
+		Mockito.when(this.repo.findByNameIgnoreCase(search)).thenReturn(testList);
+
+		assertThat(this.service.getBeerByName(search)).isEqualTo(testList);
+
+		Mockito.verify(this.repo, Mockito.times(1)).findByNameIgnoreCase(search);
 	}
 
 	@Test
@@ -112,6 +118,8 @@ public class CraftBeerServiceDBUnitTest {
 		Mockito.when(this.repo.findAll()).thenReturn(testList);
 
 		assertThat(this.service.getAllBeers()).isEqualTo(testList);
+
+		Mockito.verify(this.repo, Mockito.times(1)).findAll();
 	}
 
 }
