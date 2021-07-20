@@ -46,23 +46,38 @@ public class CraftBeerServiceDBUnitTest {
 	}
 
 	@Test
-	void testDelete() {
+	void testDeleteSucceeded() {
 		int id = 1;
 
+		Mockito.when(this.repo.existsById(id)).thenReturn(false);
+
 		assertThat(this.service.deleteCraftBeer(id)).isEqualTo(id + " has been drunk. Soz.");
+
+		Mockito.verify(this.repo, Mockito.times(1)).existsById(id);
+	}
+
+	@Test
+	void testDeleteFails() {
+		int id = 1;
+
+		Mockito.when(this.repo.existsById(id)).thenReturn(true);
+
+		assertThat(this.service.deleteCraftBeer(id)).isEqualTo("You're lucky! " + id + " hasn't been drunk yet!");
+
+		Mockito.verify(this.repo, Mockito.times(1)).existsById(id);
 	}
 
 	@Test
 	void testCreate() {
 
-		CraftBeer testCraftBeer = new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true);
+		CraftBeer testCraftBeer = new CraftBeer("Iris Brew Co", "Pale Ale", 4.2, true);
+		CraftBeer savedCraftBeer = new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true);
 
-		Mockito.when(this.repo.save(new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true))).thenReturn(testCraftBeer);
+		Mockito.when(this.repo.save(testCraftBeer)).thenReturn(savedCraftBeer);
 
-		assertThat(this.service.createCraftBeer(new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true)))
-				.isEqualTo(testCraftBeer);
+		assertThat(this.repo.save(testCraftBeer)).isEqualTo(savedCraftBeer);
 
-		Mockito.verify(this.repo, Mockito.times(1)).save(new CraftBeer(1, "Iris Brew Co", "Pale Ale", 4.2, true));
+		Mockito.verify(this.repo, Mockito.times(1)).save(testCraftBeer);
 	}
 
 	@Test
